@@ -81,7 +81,7 @@ namespace EmployeeManagement
 
     class EmployeeManagementMain
     {
-        static void main()
+        static void Main()
         {
             Employee obj;
             obj = new Manager("Kayden", "Break", "Manager", 123456);
