@@ -9,13 +9,14 @@ namespace EmployeeManagement
     class Employee : IPrintable
     {
         protected string firstName, lastName, designation;
-        protected float grossSalary;
+        protected float netSalary, grossSalary;
 
         protected Employee()
         {
             this.firstName = "";
             this.lastName = "";
             this.designation = "";
+            this.netSalary = 0.0F;
             this.grossSalary = 0.0F;
         }
 
@@ -24,7 +25,7 @@ namespace EmployeeManagement
             this.firstName = fName;
             this.lastName = lName;
             this.designation = designation;
-            this.grossSalary = salary;
+            this.netSalary = salary;
         }
 
         public virtual void CalculateSalary()
@@ -37,6 +38,7 @@ namespace EmployeeManagement
             Console.WriteLine("EMPLOYEE DETAILS:\n");
             Console.WriteLine("Name: {0} {1}", this.firstName, this.lastName);
             Console.WriteLine("Designation: {0}", this.designation);
+            Console.WriteLine("Net Salary: {0}", this.netSalary);
             Console.WriteLine("Gross Salary: {0}\n", this.grossSalary);
         }
     }
@@ -54,7 +56,8 @@ namespace EmployeeManagement
 
         public override void CalculateSalary()
         {
-            grossSalary += (petrolAllowance + foodAllowance + otherAllowance) * grossSalary;
+            grossSalary = (1 + petrolAllowance + foodAllowance + otherAllowance) * netSalary;
+
         }
     }
 
@@ -72,7 +75,7 @@ namespace EmployeeManagement
 
         public override void CalculateSalary()
         {
-            grossSalary += kilometerTravel + tourAllowance + telephoneAllowance;
+            grossSalary = netSalary + kilometerTravel + tourAllowance + telephoneAllowance;
         }
     }
 
