@@ -69,7 +69,7 @@ namespace EmployeeDelegateMng
 
     class EmployeeManagementMain
     {
-        static void main()
+        static void Main()
         {
             EmployeeDelegate empDlg = DisplayManagerDetails;
             Employee obj;
