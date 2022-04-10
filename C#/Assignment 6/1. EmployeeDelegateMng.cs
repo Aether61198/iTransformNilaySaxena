@@ -2,7 +2,7 @@ using System;
 
 namespace EmployeeDelegateMng
 {
-    public delegate void EmployeeDelegate(string fName, string lName, string designation, float netSalary, float grossSalary);
+    public delegate void EmployeeDelegate();
     class Employee
     {
         public string firstName, lastName, designation;
@@ -69,25 +69,25 @@ namespace EmployeeDelegateMng
 
     class EmployeeManagementMain
     {
-        static void Main()
+        static void main()
         {
-            EmployeeDelegate empDlg = DisplayEmployeeDetails;
+            EmployeeDelegate empDlg = DisplayManagerDetails;
             Employee obj;
             obj = new Manager("Kayden", "Break", "Manager", 123456);
             obj.CalculateSalary();
-            empDlg(obj.firstName, obj.lastName, obj.designation, obj.netSalary, obj.grossSalary);
 
             obj = new MarketingExecutive("Aether", "Twilight", "Marketing Executive", 123456, 10);
             obj.CalculateSalary();
         }
 
-        public static void DisplayEmployeeDetails(string firstName, string lastName, string designation, float netSalary, float grossSalary)
+        public static void DisplayManagerDetails()
         {
+            Employee obj = new Manager("Kayden", "Break", "Manager", 123456);
             Console.WriteLine("EMPLOYEE DETAILS:\n");
-            Console.WriteLine("Name: {0} {1}", firstName, lastName);
-            Console.WriteLine("Designation: {0}", designation);
-            Console.WriteLine("Net Salary: {0}", netSalary);
-            Console.WriteLine("Gross Salary: {0}\n", grossSalary);
+            Console.WriteLine("Name: {0} {1}", obj.firstName, obj.lastName);
+            Console.WriteLine("Designation: {0}", obj.designation);
+            Console.WriteLine("Net Salary: {0}", obj.netSalary);
+            Console.WriteLine("Gross Salary: {0}\n", obj.grossSalary);
         }
     }
 }
