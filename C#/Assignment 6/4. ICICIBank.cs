@@ -2,25 +2,31 @@ using System;
 
 namespace BankingDomain1
 {
-    public delegate void BankingOperations();
     class Account
     {
         public int accountNumber { get; set; }
         public string customerName { get; set; }
         public float balance { get; set; }
 
-        public event BankingOperations UnderBalance;
-        public event BankingOperations BalanceZero;
+        public event EventHandler UnderBalance;
+        public event EventHandler BalanceZero;
 
         public void Withdraw(float withdrawAmt)
         {
-            if (balance >= withdrawAmt)
+            if (balance == 0)
             {
-                balance -= withdrawAmt;
+                onBalanceZero(EventArgs.Empty);
             }
             else
             {
-                UnderBalance();
+                if (balance >= withdrawAmt)
+                {
+                    balance -= withdrawAmt;
+                }
+                else
+                {
+                    onUnderBalance(EventArgs.Empty);
+                }
             }
         }
 
@@ -34,6 +40,20 @@ namespace BankingDomain1
             Console.WriteLine("Customer Name: {0}", customerName);
             Console.WriteLine("Account Number: {0}", accountNumber);
             Console.WriteLine("Balance: {0}", balance);
+        }
+
+        protected void onUnderBalance(EventArgs e)
+        {
+            Console.WriteLine("Transaction cannot be continued as balance is insufficient");
+            EventHandler handler = UnderBalance;
+            handler?.Invoke(this, e);
+        }
+
+        protected void onBalanceZero(EventArgs e)
+        {
+            Console.WriteLine("Transaction cannot be continued as balance is zero");
+            EventHandler handler = BalanceZero;
+            handler?.Invoke(this, e);
         }
 
         public static void Main()
@@ -51,9 +71,6 @@ namespace BankingDomain1
             {
                 Console.WriteLine("1. Withdraw\n2. Deposit\n3. Display Balance\n4. Exit");
                 ch = Convert.ToInt32(Console.ReadLine());
-
-                if (obj.balance == 0)
-                    obj.BalanceZero();
 
                 switch (ch)
                 {
