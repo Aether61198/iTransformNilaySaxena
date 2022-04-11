@@ -5,11 +5,11 @@ namespace BankingDomain1
     class Account
     {
         public int accountNumber { get; set; }
-        public string customerName { get; set; }
+        public string? customerName { get; set; }
         public float balance { get; set; }
 
-        public event EventHandler UnderBalance;
-        public event EventHandler BalanceZero;
+        public event EventHandler? UnderBalance;
+        public event EventHandler? BalanceZero;
 
         public void Withdraw(float withdrawAmt)
         {
@@ -45,15 +45,13 @@ namespace BankingDomain1
         protected void onUnderBalance(EventArgs e)
         {
             Console.WriteLine("Transaction cannot be continued as balance is insufficient");
-            EventHandler handler = UnderBalance;
-            handler?.Invoke(this, e);
+            UnderBalance?.Invoke(this, e);
         }
 
         protected void onBalanceZero(EventArgs e)
         {
             Console.WriteLine("Transaction cannot be continued as balance is zero");
-            EventHandler handler = BalanceZero;
-            handler?.Invoke(this, e);
+            BalanceZero?.Invoke(this, e);
         }
 
         public static void Main()
